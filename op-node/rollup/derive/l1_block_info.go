@@ -158,6 +158,7 @@ func L1InfoDeposit(seqNumber uint64, block eth.BlockInfo, sysCfg eth.SystemConfi
 		return nil, err
 	}
 
+
 	source := L1InfoDepositSource{
 		L1BlockHash: block.Hash(),
 		SeqNumber:   seqNumber,

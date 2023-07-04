@@ -506,6 +506,14 @@ func NewL2StorageConfig(config *DeployConfig, block *types.Block) (state.Storage
 	storage["ProxyAdmin"] = state.StorageValues{
 		"_owner": config.ProxyAdminOwner,
 	}
+	// storage["Burn"] = state.StorageValues{
+	// 	// "total": 0,
+	// 	// "DEPOSITOR_ACCOUNT": "0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001",
+	// }
+	// storage["EventHookRegistry"] = state.StorageValues{
+	// 	// "DEPOSITOR_ACCOUNT": "0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001",
+	// 	// "hello": "hello",
+	// }
 	return storage, nil
 }
 

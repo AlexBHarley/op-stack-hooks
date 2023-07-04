@@ -8,6 +8,7 @@ import (
 	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 
+	"github.com/ethereum-optimism/optimism/op-bindings/bindings"
 	"github.com/ethereum-optimism/optimism/op-bindings/predeploys"
 	"github.com/ethereum-optimism/optimism/op-node/eth"
 	"github.com/ethereum-optimism/optimism/op-node/rollup"
@@ -21,6 +22,7 @@ type L1ReceiptsFetcher interface {
 
 type SystemConfigL2Fetcher interface {
 	SystemConfigByL2Hash(ctx context.Context, hash common.Hash) (eth.SystemConfig, error)
+	L2EventHooks(ctx context.Context, hash uint64) ([]bindings.EventHookRegistryEventHookItem, error)
 }
 
 // FetchingAttributesBuilder fetches inputs for the building of L2 payload attributes on the fly.
@@ -46,7 +48,13 @@ func NewFetchingAttributesBuilder(cfg *rollup.Config, l1 L1ReceiptsFetcher, l2 S
 func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Context, l2Parent eth.L2BlockRef, epoch eth.BlockID) (attrs *eth.PayloadAttributes, err error) {
 	var l1Info eth.BlockInfo
 	var depositTxs []hexutil.Bytes
+	var eventHookTxs []hexutil.Bytes
 	var seqNumber uint64
+
+	eventHooks, err := ba.l2.L2EventHooks(ctx, l2Parent.Number)
+	if err != nil {
+		return nil, NewTemporaryError(fmt.Errorf("failed to retrieve L2 event hooks: %w", err))
+	}
 
 	sysConfig, err := ba.l2.SystemConfigByL2Hash(ctx, l2Parent.Hash)
 	if err != nil {
@@ -77,9 +85,15 @@ func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Contex
 			return nil, NewCriticalError(fmt.Errorf("failed to apply derived L1 sysCfg updates: %w", err))
 		}
 
+		events, err := DeriveEvents(receipts, eventHooks)
+		if err != nil {
+			return nil, NewCriticalError(fmt.Errorf("failed to derive some events: %w", err))
+		}
+
 		l1Info = info
 		depositTxs = deposits
 		seqNumber = 0
+		eventHookTxs = events
 	} else {
 		if l2Parent.L1Origin.Hash != epoch.Hash {
 			return nil, NewResetError(fmt.Errorf("cannot create new block with L1 origin %s in conflict with L1 origin %s", epoch, l2Parent.L1Origin))
@@ -90,6 +104,7 @@ func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Contex
 		}
 		l1Info = info
 		depositTxs = nil
+		eventHookTxs = nil
 		seqNumber = l2Parent.SequenceNumber + 1
 	}
 
@@ -100,15 +115,26 @@ func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Contex
 			l2Parent, nextL2Time, eth.ToBlockID(l1Info), l1Info.Time()))
 	}
 
+	fmt.Println("Building system transactions...")
 	l1InfoTx, err := L1InfoDepositBytes(seqNumber, l1Info, sysConfig, ba.cfg.IsRegolith(nextL2Time))
 	if err != nil {
 		return nil, NewCriticalError(fmt.Errorf("failed to create l1InfoTx: %w", err))
 	}
 
-	txs := make([]hexutil.Bytes, 0, 1+len(depositTxs))
-	txs = append(txs, l1InfoTx)
-	txs = append(txs, depositTxs...)
+	l1BurnTx, err := L1BurnDepositBytes(seqNumber, l1Info, sysConfig, ba.cfg.IsRegolith(nextL2Time))
+	if err != nil {
+		return nil, NewCriticalError(fmt.Errorf("failed to create l1BurnTx: %w", err))
+	}
 
+	
+	txs := make([]hexutil.Bytes, 0, 2+len(depositTxs) + len(eventHookTxs))
+	txs = append(txs, l1InfoTx)
+	txs = append(txs, l1BurnTx)
+	txs = append(txs, depositTxs...)
+	txs = append(txs, eventHookTxs...)
+	
+	fmt.Println("Built", len(txs), "system transactions")
+	
 	return &eth.PayloadAttributes{
 		Timestamp:             hexutil.Uint64(nextL2Time),
 		PrevRandao:            eth.Bytes32(l1Info.MixDigest()),

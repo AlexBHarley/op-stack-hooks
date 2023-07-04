@@ -77,6 +77,12 @@ func BuildOptimism(immutable ImmutableConfig) (DeploymentResults, error) {
 			Name: "L1Block",
 		},
 		{
+			Name: "Burn",
+		},
+		{
+			Name: "EventHookRegistry",
+		},
+		{
 			Name: "L2CrossDomainMessenger",
 			Args: []interface{}{
 				immutable["L2CrossDomainMessenger"]["otherMessenger"],
@@ -175,6 +181,12 @@ func l2Deployer(backend *backends.SimulatedBackend, opts *bind.TransactOpts, dep
 	case "L1Block":
 		// No arguments required for the L1Block contract
 		_, tx, _, err = bindings.DeployL1Block(opts, backend)
+	case "Burn":
+		// No arguments required for the Burn contract
+		_, tx, _, err = bindings.DeployBurn(opts, backend)
+	case "EventHookRegistry":
+		// No arguments required for the EventHookRegistry contract
+		_, tx, _, err = bindings.DeployEventHookRegistry(opts, backend)
 	case "L2CrossDomainMessenger":
 		otherMessenger, ok := deployment.Args[0].(common.Address)
 		if !ok {

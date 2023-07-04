@@ -186,6 +186,11 @@ func checkPredeployConfig(client *ethclient.Client, name string) error {
 				return err
 			}
 
+		case predeploys.BurnAddr:
+			if err := checkBurn(p, client); err != nil {
+				return err
+			}
+
 		case predeploys.WETH9Addr:
 			if err := checkWETH9(p, client); err != nil {
 				return err
@@ -484,6 +489,20 @@ func checkL1BlockNumber(addr common.Address, client *ethclient.Client) error {
 	log.Info("L1BlockNumber version", "version", version)
 	return nil
 }
+
+func checkBurn(addr common.Address, client *ethclient.Client) error {
+	contract, err := bindings.NewBurn(addr, client)
+	if err != nil {
+		return err
+	}
+	total, err := contract.Total(&bind.CallOpts{})
+	if err != nil {
+		return err
+	}
+	log.Info("Burn is working")
+	return nil
+}
+
 
 func checkOptimismMintableERC20Factory(addr common.Address, client *ethclient.Client) error {
 	contract, err := bindings.NewOptimismMintableERC20Factory(addr, client)

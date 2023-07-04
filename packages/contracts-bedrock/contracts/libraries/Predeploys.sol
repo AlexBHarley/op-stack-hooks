@@ -69,6 +69,12 @@ library Predeploys {
     /// @notice Address of the L1FeeVault predeploy.
     address internal constant L1_FEE_VAULT = 0x420000000000000000000000000000000000001A;
 
+    /// @notice Address of the Burn predeploy.
+    address internal constant BURN = 0x420000000000000000000000000000000000001b;
+
+    /// @notice Address of the Burn predeploy.
+    address internal constant EVENT_HOOK_REGISTRY = 0x420000000000000000000000000000000000001c;
+
     /// @notice Address of the GovernanceToken predeploy.
     address internal constant GOVERNANCE_TOKEN = 0x4200000000000000000000000000000000000042;
 }

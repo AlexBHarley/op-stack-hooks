@@ -48,6 +48,7 @@ func BuildL2Genesis(config *DeployConfig, l1StartBlock *types.Block) (*core.Gene
 	}
 	for name, predeploy := range predeploys.Predeploys {
 		addr := *predeploy
+		fmt.Println(">>>", name, predeploy, addr)
 		if addr == predeploys.GovernanceTokenAddr && !config.EnableGovernance {
 			// there is no governance token configured, so skip the governance token predeploy
 			log.Warn("Governance is not enabled, skipping governance token predeploy.")
@@ -55,6 +56,7 @@ func BuildL2Genesis(config *DeployConfig, l1StartBlock *types.Block) (*core.Gene
 		}
 		codeAddr := addr
 		if predeploys.IsProxied(addr) {
+			fmt.Println("IsProxied")
 			codeAddr, err = AddressToCodeNamespace(addr)
 			if err != nil {
 				return nil, fmt.Errorf("error converting to code namespace: %w", err)
@@ -64,6 +66,7 @@ func BuildL2Genesis(config *DeployConfig, l1StartBlock *types.Block) (*core.Gene
 		} else {
 			db.DeleteState(addr, AdminSlot)
 		}
+		fmt.Println(addr, codeAddr)
 		if err := setupPredeploy(db, deployResults, storage, name, addr, codeAddr); err != nil {
 			return nil, err
 		}
