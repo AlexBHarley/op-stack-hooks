@@ -1,3 +1,80 @@
+# OP Hooks
+
+An [OP Stack Mod](https://blog.oplabs.co/introducing-op-stack-mods/) for adding customisable transaction hooks to your OP Stack chain. Hook registration is permissioned in this mod, meaning hook registration is priviledged and only rollup deployers can add these.
+
+- [x] Event hooks
+- [ ] Before block hook
+- [ ] Transaction hooks
+
+### Event hooks
+
+Relay transaction events from Ethereum mainnet to your rollup, these events can then trigger additional contracts on your rollup or simply store data. Some novel ideas for event hooks include,
+
+- Chainlink price feeds, automatically relay price feed data to your rollup
+- Cross chain goverance, once votes pass and are executed on L1 these could be replayed on your rollup
+-
+
+A hook can be added by calling `addEventHook` on the EventHookRegistry, a predeploy available at `0x420000000000000000000000000000000000001c`. Your
+
+### Before block hook
+
+Called before every block, giving priviledged access to block space for rollup deployers.
+
+### Transaction hooks
+
+## Quickstart
+
+The best way to get started with this mod and register some hooks is to use the devnet. Following along with the below commands will get you setup with a hook in under five minutes.
+
+We'll first setup our devnet.
+
+```
+make devnet-up-deploy
+```
+
+This command runs both the L1 and L2 pieces of the rollup which is super handy. After that's completed we'll set some variables to make deploying and interacting with our contracts a bit easier.
+
+```
+export L2=http://localhost:9545
+export L1=http://localhost:8545
+export PRIVATE_KEY=0xac0974bec39a17e36ba4a6b4d238ff944bacb478cbed5efcae784d7bf4f2ff80
+```
+
+Bundled as part of this OP Stack Mod are some example contracts that show off the hook functionality. We'll deploy those and then send an event from L1 to L2 and record the output.
+
+First deploy the L1 contract, and make sure you note down the address it was deployed to. We'll refer to this address as `<EVENT_EMITTER>` for the rest of this quickstart.
+
+```
+cd packages/contracts-bedrock
+forge create --private-key $PRIVATE_KEY contracts/L1/hooks/ExampleEventEmitter.sol:ExampleEventEmitter --rpc-url $L1
+```
+
+Then deploy the L2 contract, and similarly make a note of the contract address. We'll refer to it as `<EVENT_HOOK>` for the rest of this quickstart.
+
+```
+forge create --private-key $PRIVATE_KEY contracts/L2/hooks/ExampleEventHook.sol:ExampleEventHook --rpc-url $L2
+```
+
+Now we need to register this hook on the on our hook registry,
+
+```
+cast send 0x420000000000000000000000000000000000001c "addEventHook(bytes32,address,address)" 0x906c0fc836aaccaf76ef8a4168843fbbb1d6fb940e6e045ed4d32c1bcefbc7c8 <EVENT_EMITTER> <EVENT_HOOK> --rpc-url $L2 --private-key $PRIVATE_KEY
+```
+
+The magic variable we just used, `0x906c0fc836aaccaf76ef8a4168843fbbb1d6fb940e6e045ed4d32c1bcefbc7c8`, is the topic of the event we wish to register. This can be found in the [ExampleEventEmitter](./packages/contracts-bedrock/contracts/L1/hooks/ExampleEventEmitter.sol), and is the result of hashing the event we're interested in, namely the `ExampleEvent`.
+
+Now all we need to do is trigger an event on L1 and make sure the data was received on the L2.
+
+```
+cast send 0x0d6cd45Be79bc9A6Cf672D345d2855158C4fDdf1 "emitEvent()" --rpc-url $L1 --private-key $PRIVATE_KEY
+```
+
+Remember this example emitter emits an ever incrementing number, and the example hook simply stores this number. So if we check the counter value on L2, we should see the count variable was incremented,
+
+```
+cast call 0x5F7fAB0e5D73356Fd73624c8F43c0cAD76950C88 "getLastParsedCount()" --rpc-url $L2
+0x0000000000000000000000000000000000000000000000000000000000000001
+```
 
 <div align="center">
   <br />
@@ -95,11 +172,11 @@ Refer to the Directory Structure section below to understand which packages are 
 
 ### Active Branches
 
-| Branch          | Status                                                                           |
-| --------------- | -------------------------------------------------------------------------------- |
-| [master](https://github.com/ethereum-optimism/optimism/tree/master/)                   | Accepts PRs from `develop` when intending to deploy to production.                  |
-| [develop](https://github.com/ethereum-optimism/optimism/tree/develop/)                 | Accepts PRs that are compatible with `master` OR from `release/X.X.X` branches.                    |
-| release/X.X.X                                                                          | Accepts PRs for all changes, particularly those not backwards compatible with `develop` and `master`. |
+| Branch                                                                 | Status                                                                                                |
+| ---------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
+| [master](https://github.com/ethereum-optimism/optimism/tree/master/)   | Accepts PRs from `develop` when intending to deploy to production.                                    |
+| [develop](https://github.com/ethereum-optimism/optimism/tree/develop/) | Accepts PRs that are compatible with `master` OR from `release/X.X.X` branches.                       |
+| release/X.X.X                                                          | Accepts PRs for all changes, particularly those not backwards compatible with `develop` and `master`. |
 
 ### Overview
 
