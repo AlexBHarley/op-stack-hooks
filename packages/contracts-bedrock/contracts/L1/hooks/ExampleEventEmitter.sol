@@ -1,14 +1,20 @@
-contract ExampleEventEmitter {
-    // Topic: 0x12210f92675543a3eee7d9f6cc64eaca8eb1431502f685da3f48e7593e2b7f1e
-    event ExampleEvent(uint256);
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
 
+/// @title ExampleEventEmitter
+/// @notice Pair this with the ExampleEventHook contract
+/// @notice Emits an event with an ever increasing counter.
+contract ExampleEventEmitter {
     uint256 internal counter;
+
+    // 0x906c0fc836aaccaf76ef8a4168843fbbb1d6fb940e6e045ed4d32c1bcefbc7c8
+    event ExampleEvent(address indexed _contract, address indexed sender, uint256 count);
 
     constructor() {}
 
     function emitEvent() external {
         counter++;
 
-        emit ExampleEvent(counter);
+        emit ExampleEvent(address(this), msg.sender, counter);
     }
 }
