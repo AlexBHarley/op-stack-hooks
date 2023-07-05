@@ -77,9 +77,6 @@ func BuildOptimism(immutable ImmutableConfig) (DeploymentResults, error) {
 			Name: "L1Block",
 		},
 		{
-			Name: "Burn",
-		},
-		{
 			Name: "EventHookRegistry",
 			Args: []interface{}{
 				immutable["EventHookRegistry"]["_owner"],
@@ -184,9 +181,6 @@ func l2Deployer(backend *backends.SimulatedBackend, opts *bind.TransactOpts, dep
 	case "L1Block":
 		// No arguments required for the L1Block contract
 		_, tx, _, err = bindings.DeployL1Block(opts, backend)
-	case "Burn":
-		// No arguments required for the Burn contract
-		_, tx, _, err = bindings.DeployBurn(opts, backend)
 	case "EventHookRegistry":
 		owner, ok := deployment.Args[0].(common.Address)
 		if !ok {
