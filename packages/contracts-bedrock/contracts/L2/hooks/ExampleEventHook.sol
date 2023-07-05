@@ -7,8 +7,11 @@ import { AbstractEventHook } from "./AbstractEventHook.sol";
 /// @notice Pair this with the ExampleEventEmitter contract
 /// @notice Receives an event from the ExampleEventEmitter and .
 contract ExampleEventHook is AbstractEventHook {
-    bytes32 internal lastHandledTopic;
-    address internal lastHandledAddress;
+    address internal lastOriginHandled;
+
+    address internal lastParsedOrigin;
+    address internal lastParsedSender;
+    uint256 internal lastParsedCount;
 
     constructor() {}
 
@@ -17,17 +20,31 @@ contract ExampleEventHook is AbstractEventHook {
         bytes calldata topics,
         bytes calldata data
     ) external onlyDepositor {
-        (address origin, address sender, uint256 count) = abi.decode(
+        (bytes32 topic0, bytes32 topic1, bytes32 _topic2, bytes32 _topic3) = abi.decode(
             topics,
-            (address, address, uint256)
+            (bytes32, bytes32, bytes32, bytes32)
         );
+
+        lastOriginHandled = origin;
+
+        lastParsedOrigin = address(bytes20(topic0));
+        lastParsedSender = address(bytes20(topic1));
+        lastParsedCount = uint256(bytes32(data));
     }
 
-    function getLastHandledTopic() external view returns (bytes32) {
-        return lastHandledTopic;
+    function getLastOriginHandled() external view returns (address) {
+        return lastOriginHandled;
     }
 
-    function getLastHandledAddress() external view returns (address) {
-        return lastHandledAddress;
+    function getLastParsedOrigin() external view returns (address) {
+        return lastParsedOrigin;
+    }
+
+    function getLastParsedSender() external view returns (address) {
+        return lastParsedSender;
+    }
+
+    function getLastParsedCount() external view returns (uint256) {
+        return lastParsedCount;
     }
 }

@@ -19,14 +19,7 @@ contract EventHookRegistryTest is Test {
     bytes32 id = keccak256(abi.encode(topic, origin, receiver));
 
     function setUp() public virtual {
-        Proxy proxy = new Proxy(address(this));
-        EventHookRegistry impl = new EventHookRegistry();
-
-        proxy.upgradeToAndCall({
-            _implementation: address(impl),
-            _data: abi.encodeCall(impl.initialize, (address(this)))
-        });
-        registry = EventHookRegistry(address(proxy));
+        registry = new EventHookRegistry(address(this));
     }
 
     function testRegisteringEvent() public {

@@ -13,30 +13,78 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
-const EVENT_HOOK_ABI = `[
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "_topic",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "address",
-          "name": "_origin",
-          "type": "address"
-        }
-      ],
-      "name": "handle",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    }
-  ]`
+const EVENT_HOOK_ABI = `
+[
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "origin",
+				"type": "address"
+			},
+			{
+				"internalType": "bytes",
+				"name": "topics",
+				"type": "bytes"
+			},
+			{
+				"internalType": "bytes",
+				"name": "data",
+				"type": "bytes"
+			}
+		],
+		"name": "handle",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	}
+]`
 
+func buildHookCallData(log *types.Log) ([]byte, error) {
+	var logTopics [4]interface{}
+	for i := 0; i < 4; i++ {
+		var by [32]byte
+		if i < len(log.Topics) {
+			val := log.Topics[i]
+			copy(by[:], val.Bytes())
+		} else {
+			by = [32]byte{}
+		}
+		logTopics[i] = by
+	}
 
+	registry, err := abi.JSON(strings.NewReader(EVENT_HOOK_ABI))
+	if err != nil {
+		fmt.Println("buildHookCallData json err", err)
+		return nil, nil
+	}
 
-func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookRegistryEventHookItem) ([]*types.DepositTx, error) {
+	bytes32Ty, _ := abi.NewType("bytes32", "", nil)
+	arguments := abi.Arguments{
+		{Type: bytes32Ty},
+		{Type: bytes32Ty},
+		{Type: bytes32Ty},
+		{Type: bytes32Ty},
+	}
+
+	packedTopics, err := arguments.Pack(
+		logTopics[0],
+		logTopics[1],
+		logTopics[2],
+		logTopics[3],
+	)
+
+	result, err := registry.Pack("handle", log.Address, packedTopics, log.Data)
+	if err != nil {
+		fmt.Println("buildHookCallData pack err", err)
+		return nil, nil
+	}
+
+	return result, nil
+}
+ 
+
+func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookItem) ([]*types.DepositTx, error) {
 	var out []*types.DepositTx
 	var result error
 	for i, rec := range receipts {
@@ -46,23 +94,9 @@ func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookRegistr
 		for j, log := range rec.Logs {
 			for _, hook := range eventHooks {
 				if log.Address == hook.Origin && len(log.Topics) > 0 && log.Topics[0] == hook.Topic {
-					fmt.Println("Found a matching topic")
-					fmt.Println(log.Topics)
-					fmt.Println(log.Data)
+					fmt.Println("Found a matching topic", log.Topics[0])
 
-					registry, err := abi.JSON(strings.NewReader(EVENT_HOOK_ABI))
-					if err != nil {
-						fmt.Println("parseLogs json err", err)
-						return  out, err
-					}
-
-					
-
-						
-					data, err := registry.Pack("handle", log.Topics[0], log.Address)
-					if err != nil {
-						fmt.Println("parseLogs pack err", err)
-					}
+					callData, err := buildHookCallData(log)
 
 					source := UserDepositSource{
 							L1BlockHash: rec.BlockHash,
@@ -74,9 +108,9 @@ func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookRegistr
 						Mint: big.NewInt(0),
 						Value: big.NewInt(0),
 						IsSystemTransaction: false,
-						Gas: 300_000,
+						Gas: 500_000,
 						SourceHash: source.SourceHash(),
-						Data: data,
+						Data: callData,
 					}
 
 					if err != nil {
@@ -92,7 +126,7 @@ func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookRegistr
 	return out, result
 }
 
-func DeriveEvents(receipts []*types.Receipt, eventHooks []bindings.EventHookRegistryEventHookItem) ([]hexutil.Bytes, error) {
+func DeriveEvents(receipts []*types.Receipt, eventHooks []bindings.EventHookItem) ([]hexutil.Bytes, error) {
 	var result error
 	userDeposits, err := parseLogs(receipts, eventHooks)
 	if err != nil {

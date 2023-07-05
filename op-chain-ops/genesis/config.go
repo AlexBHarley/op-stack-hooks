@@ -452,6 +452,9 @@ func NewL2ImmutableConfig(config *DeployConfig, block *types.Block) (immutables.
 		"minimumWithdrawalAmount": config.BaseFeeVaultMinimumWithdrawalAmount,
 		"withdrawalNetwork":       config.BaseFeeVaultWithdrawalNetwork,
 	}
+	immutable["EventHookRegistry"] = immutables.ImmutableValues{
+		"_owner": common.HexToAddress("0xdee43C7C0E97B81Bdb473d558567d9E0E54bC634"),
+	}
 
 	return immutable, nil
 }
@@ -506,14 +509,9 @@ func NewL2StorageConfig(config *DeployConfig, block *types.Block) (state.Storage
 	storage["ProxyAdmin"] = state.StorageValues{
 		"_owner": config.ProxyAdminOwner,
 	}
-	// storage["Burn"] = state.StorageValues{
-	// 	// "total": 0,
-	// 	// "DEPOSITOR_ACCOUNT": "0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001",
-	// }
-	// storage["EventHookRegistry"] = state.StorageValues{
-	// 	// "DEPOSITOR_ACCOUNT": "0xDeaDDEaDDeAdDeAdDEAdDEaddeAddEAdDEAd0001",
-	// 	// "hello": "hello",
-	// }
+	storage["EventHookRegistry"] = state.StorageValues{
+		"_owner": common.HexToAddress("0xdee43C7C0E97B81Bdb473d558567d9E0E54bC634"),
+	}
 	return storage, nil
 }
 

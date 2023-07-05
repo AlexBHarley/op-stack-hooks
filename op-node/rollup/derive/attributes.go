@@ -22,7 +22,7 @@ type L1ReceiptsFetcher interface {
 
 type SystemConfigL2Fetcher interface {
 	SystemConfigByL2Hash(ctx context.Context, hash common.Hash) (eth.SystemConfig, error)
-	L2EventHooks(ctx context.Context, hash uint64) ([]bindings.EventHookRegistryEventHookItem, error)
+	L2EventHooks(ctx context.Context, hash uint64) ([]bindings.EventHookItem, error)
 }
 
 // FetchingAttributesBuilder fetches inputs for the building of L2 payload attributes on the fly.

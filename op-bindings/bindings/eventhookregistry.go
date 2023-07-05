@@ -28,8 +28,8 @@ var (
 	_ = event.NewSubscription
 )
 
-// EventHookRegistryEventHookItem is an auto generated low-level Go binding around an user-defined struct.
-type EventHookRegistryEventHookItem struct {
+// EventHookItem is an auto generated low-level Go binding around an user-defined struct.
+type EventHookItem struct {
 	Topic    [32]byte
 	Origin   common.Address
 	Receiver common.Address
@@ -37,8 +37,8 @@ type EventHookRegistryEventHookItem struct {
 
 // EventHookRegistryMetaData contains all meta data concerning the EventHookRegistry contract.
 var EventHookRegistryMetaData = &bind.MetaData{
-	ABI: "[{\"inputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"DEPOSITOR_ACCOUNT\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_topic\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"_origin\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_receiver\",\"type\":\"address\"}],\"name\":\"addEventHook\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getEventHooks\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"topic\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"origin\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"internalType\":\"structEventHookRegistry.EventHookItem[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"goodbye\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"hello\",\"outputs\":[{\"internalType\":\"string\",\"name\":\"\",\"type\":\"string\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"hooks\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"topic\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"origin\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"}]",
-	Bin: "0x60c0604052600560809081526468656c6c6f60d81b60a05260019061002490826100d6565b5034801561003157600080fd5b50610195565b634e487b7160e01b600052604160045260246000fd5b600181811c9082168061006157607f821691505b60208210810361008157634e487b7160e01b600052602260045260246000fd5b50919050565b601f8211156100d157600081815260208120601f850160051c810160208610156100ae5750805b601f850160051c820191505b818110156100cd578281556001016100ba565b5050505b505050565b81516001600160401b038111156100ef576100ef610037565b610103816100fd845461004d565b84610087565b602080601f83116001811461013857600084156101205750858301515b600019600386901b1c1916600185901b1785556100cd565b600085815260208120601f198616915b8281101561016757888601518255948401946001909101908401610148565b50858210156101855787850151600019600388901b60f8161c191681555b5050505050600190811b01905550565b610700806101a46000396000f3fe608060405234801561001057600080fd5b50600436106100725760003560e01c8063864c17d711610050578063864c17d7146101d8578063dc85b4991461021d578063e591b2821461023257600080fd5b806319ff1d211461007757806375fc8e3c146100955780637f5c4868146100ce575b600080fd5b61007f610272565b60405161008c9190610485565b60405180910390f35b60408051808201909152600781527f676f6f6462796500000000000000000000000000000000000000000000000000602082015261007f565b6101d66100dc366004610521565b6040805160608101825293845273ffffffffffffffffffffffffffffffffffffffff9283166020850190815291831690840190815260028054600181018255600091909152935160039094027f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ace81019490945590517f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5acf840180549184167fffffffffffffffffffffffff000000000000000000000000000000000000000092831617905590517f405787fa12a823e0f2b7631cc41b3ba8828b3321ca811111fa75cd3aa3bb5ad09093018054939092169216919091179055565b005b6101eb6101e636600461055d565b610300565b6040805193845273ffffffffffffffffffffffffffffffffffffffff928316602085015291169082015260600161008c565b61022561034d565b60405161008c9190610576565b61024d73deaddeaddeaddeaddeaddeaddeaddeaddead000181565b60405173ffffffffffffffffffffffffffffffffffffffff909116815260200161008c565b6001805461027f906105e9565b80601f01602080910402602001604051908101604052809291908181526020018280546102ab906105e9565b80156102f85780601f106102cd576101008083540402835291602001916102f8565b820191906000526020600020905b8154815290600101906020018083116102db57829003601f168201915b505050505081565b6002818154811061031057600080fd5b600091825260209091206003909102018054600182015460029092015490925073ffffffffffffffffffffffffffffffffffffffff918216911683565b60025460609060009067ffffffffffffffff81111561036e5761036e610636565b6040519080825280602002602001820160405280156103d757816020015b60408051606081018252600080825260208083018290529282015282527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff90920191018161038c5790505b50905060005b60025481101561047f57600281815481106103fa576103fa610665565b600091825260209182902060408051606081018252600390930290910180548352600181015473ffffffffffffffffffffffffffffffffffffffff908116948401949094526002015490921691810191909152825183908390811061046157610461610665565b6020026020010181905250808061047790610694565b9150506103dd565b50919050565b600060208083528351808285015260005b818110156104b257858101830151858201604001528201610496565b818111156104c4576000604083870101525b50601f017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe016929092016040019392505050565b803573ffffffffffffffffffffffffffffffffffffffff8116811461051c57600080fd5b919050565b60008060006060848603121561053657600080fd5b83359250610546602085016104f8565b9150610554604085016104f8565b90509250925092565b60006020828403121561056f57600080fd5b5035919050565b602080825282518282018190526000919060409081850190868401855b828110156105dc578151805185528681015173ffffffffffffffffffffffffffffffffffffffff9081168887015290860151168585015260609093019290850190600101610593565b5091979650505050505050565b600181811c908216806105fd57607f821691505b60208210810361047f577f4e487b7100000000000000000000000000000000000000000000000000000000600052602260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff82036106ec577f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b506001019056fea164736f6c634300080f000a",
+	ABI: "[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_owner\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"bytes32\",\"name\":\"topic\",\"type\":\"bytes32\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"origin\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"name\":\"EventHookAdded\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"EventHookRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"_topic\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"_origin\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"_receiver\",\"type\":\"address\"}],\"name\":\"addEventHook\",\"outputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"getEventHooks\",\"outputs\":[{\"components\":[{\"internalType\":\"bytes32\",\"name\":\"topic\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"origin\",\"type\":\"address\"},{\"internalType\":\"address\",\"name\":\"receiver\",\"type\":\"address\"}],\"internalType\":\"structEventHookItem[]\",\"name\":\"\",\"type\":\"tuple[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"id\",\"type\":\"bytes32\"}],\"name\":\"removeEventHook\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}]",
+	Bin: "0x608060405234801561001057600080fd5b50604051610ba9380380610ba983398101604081905261002f91610097565b61003833610047565b61004181610047565b506100c7565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000602082840312156100a957600080fd5b81516001600160a01b03811681146100c057600080fd5b9392505050565b610ad3806100d66000396000f3fe608060405234801561001057600080fd5b50600436106100725760003560e01c80638da5cb5b116100505780638da5cb5b146100ba578063dc85b499146100e2578063f2fde38b146100f757600080fd5b8063715018a6146100775780637bae7b72146100815780637f5c486814610094575b600080fd5b61007f61010a565b005b61007f61008f3660046108af565b61011e565b6100a76100a23660046108f1565b61021f565b6040519081526020015b60405180910390f35b60005460405173ffffffffffffffffffffffffffffffffffffffff90911681526020016100b1565b6100ea61040e565b6040516100b1919061092d565b61007f6101053660046109a0565b61054b565b610112610602565b61011c6000610683565b565b610126610602565b6101316002826106f8565b61019c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600560248201527f21686f6f6b00000000000000000000000000000000000000000000000000000060448201526064015b60405180910390fd5b60008181526001602081905260408220918255810180547fffffffffffffffffffffffff00000000000000000000000000000000000000009081169091556002918201805490911690556101f09082610715565b5060405181907f06ec7e790ccfc5856f4aa76b96fe94c880e0da3848b7160500b8aaf346fd77f190600090a250565b6000610229610602565b60008484846040516020016102679392919092835273ffffffffffffffffffffffffffffffffffffffff918216602084015216604082015260600190565b604080517fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe0818403018152919052805160209091012090506102aa6002826106f8565b15610311576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152600b60248201527f686f6f6b206578697374730000000000000000000000000000000000000000006044820152606401610193565b6040805160608101825286815273ffffffffffffffffffffffffffffffffffffffff808716602080840191825287831684860190815260008781526001928390529590952084518155915190820180549184167fffffffffffffffffffffffff0000000000000000000000000000000000000000928316179055935160029182018054919093169416939093179055906103ab9083610721565b506040805187815273ffffffffffffffffffffffffffffffffffffffff8781166020830152861681830152905183917fdf6bdf83d24c78bb26eb3d7b34123cc0be2370aa49944d3ca1b9b8801becd41c919081900360600190a250949350505050565b6060600061041c600261072d565b67ffffffffffffffff811115610434576104346109bb565b60405190808252806020026020018201604052801561049d57816020015b60408051606081018252600080825260208083018290529282015282527fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff9092019101816104525790505b50905060005b6104ad600261072d565b8110156105455760006104c1600283610737565b6000818152600160208181526040928390208351606081018552815481529281015473ffffffffffffffffffffffffffffffffffffffff90811692840192909252600201541691810191909152845191925090849084908110610526576105266109ea565b602002602001018190525050808061053d90610a48565b9150506104a3565b50919050565b610553610602565b73ffffffffffffffffffffffffffffffffffffffff81166105f6576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f64647265737300000000000000000000000000000000000000000000000000006064820152608401610193565b6105ff81610683565b50565b60005473ffffffffffffffffffffffffffffffffffffffff16331461011c576040517f08c379a000000000000000000000000000000000000000000000000000000000815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e65726044820152606401610193565b6000805473ffffffffffffffffffffffffffffffffffffffff8381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b600081815260018301602052604081205415155b90505b92915050565b600061070c8383610743565b600061070c8383610836565b600061070f825490565b600061070c8383610885565b6000818152600183016020526040812054801561082c576000610767600183610a80565b855490915060009061077b90600190610a80565b90508181146107e057600086600001828154811061079b5761079b6109ea565b90600052602060002001549050808760000184815481106107be576107be6109ea565b6000918252602080832090910192909255918252600188019052604090208390555b85548690806107f1576107f1610a97565b60019003818190600052602060002001600090559055856001016000868152602001908152602001600020600090556001935050505061070f565b600091505061070f565b600081815260018301602052604081205461087d5750815460018181018455600084815260208082209093018490558454848252828601909352604090209190915561070f565b50600061070f565b600082600001828154811061089c5761089c6109ea565b9060005260206000200154905092915050565b6000602082840312156108c157600080fd5b5035919050565b803573ffffffffffffffffffffffffffffffffffffffff811681146108ec57600080fd5b919050565b60008060006060848603121561090657600080fd5b83359250610916602085016108c8565b9150610924604085016108c8565b90509250925092565b602080825282518282018190526000919060409081850190868401855b82811015610993578151805185528681015173ffffffffffffffffffffffffffffffffffffffff908116888701529086015116858501526060909301929085019060010161094a565b5091979650505050505050565b6000602082840312156109b257600080fd5b61070c826108c8565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203610a7957610a79610a19565b5060010190565b600082821015610a9257610a92610a19565b500390565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052603160045260246000fdfea164736f6c634300080f000a",
 }
 
 // EventHookRegistryABI is the input ABI used to generate the binding from.
@@ -50,7 +50,7 @@ var EventHookRegistryABI = EventHookRegistryMetaData.ABI
 var EventHookRegistryBin = EventHookRegistryMetaData.Bin
 
 // DeployEventHookRegistry deploys a new Ethereum contract, binding an instance of EventHookRegistry to it.
-func DeployEventHookRegistry(auth *bind.TransactOpts, backend bind.ContractBackend) (common.Address, *types.Transaction, *EventHookRegistry, error) {
+func DeployEventHookRegistry(auth *bind.TransactOpts, backend bind.ContractBackend, _owner common.Address) (common.Address, *types.Transaction, *EventHookRegistry, error) {
 	parsed, err := EventHookRegistryMetaData.GetAbi()
 	if err != nil {
 		return common.Address{}, nil, nil, err
@@ -59,7 +59,7 @@ func DeployEventHookRegistry(auth *bind.TransactOpts, backend bind.ContractBacke
 		return common.Address{}, nil, nil, errors.New("GetABI returned nil")
 	}
 
-	address, tx, contract, err := bind.DeployContract(auth, *parsed, common.FromHex(EventHookRegistryBin), backend)
+	address, tx, contract, err := bind.DeployContract(auth, *parsed, common.FromHex(EventHookRegistryBin), backend, _owner)
 	if err != nil {
 		return common.Address{}, nil, nil, err
 	}
@@ -208,12 +208,43 @@ func (_EventHookRegistry *EventHookRegistryTransactorRaw) Transact(opts *bind.Tr
 	return _EventHookRegistry.Contract.contract.Transact(opts, method, params...)
 }
 
-// DEPOSITORACCOUNT is a free data retrieval call binding the contract method 0xe591b282.
+// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
 //
-// Solidity: function DEPOSITOR_ACCOUNT() view returns(address)
-func (_EventHookRegistry *EventHookRegistryCaller) DEPOSITORACCOUNT(opts *bind.CallOpts) (common.Address, error) {
+// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
+func (_EventHookRegistry *EventHookRegistryCaller) GetEventHooks(opts *bind.CallOpts) ([]EventHookItem, error) {
 	var out []interface{}
-	err := _EventHookRegistry.contract.Call(opts, &out, "DEPOSITOR_ACCOUNT")
+	err := _EventHookRegistry.contract.Call(opts, &out, "getEventHooks")
+
+	if err != nil {
+		return *new([]EventHookItem), err
+	}
+
+	out0 := *abi.ConvertType(out[0], new([]EventHookItem)).(*[]EventHookItem)
+
+	return out0, err
+
+}
+
+// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
+//
+// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
+func (_EventHookRegistry *EventHookRegistrySession) GetEventHooks() ([]EventHookItem, error) {
+	return _EventHookRegistry.Contract.GetEventHooks(&_EventHookRegistry.CallOpts)
+}
+
+// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
+//
+// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
+func (_EventHookRegistry *EventHookRegistryCallerSession) GetEventHooks() ([]EventHookItem, error) {
+	return _EventHookRegistry.Contract.GetEventHooks(&_EventHookRegistry.CallOpts)
+}
+
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
+//
+// Solidity: function owner() view returns(address)
+func (_EventHookRegistry *EventHookRegistryCaller) Owner(opts *bind.CallOpts) (common.Address, error) {
+	var out []interface{}
+	err := _EventHookRegistry.contract.Call(opts, &out, "owner")
 
 	if err != nil {
 		return *new(common.Address), err
@@ -225,170 +256,544 @@ func (_EventHookRegistry *EventHookRegistryCaller) DEPOSITORACCOUNT(opts *bind.C
 
 }
 
-// DEPOSITORACCOUNT is a free data retrieval call binding the contract method 0xe591b282.
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function DEPOSITOR_ACCOUNT() view returns(address)
-func (_EventHookRegistry *EventHookRegistrySession) DEPOSITORACCOUNT() (common.Address, error) {
-	return _EventHookRegistry.Contract.DEPOSITORACCOUNT(&_EventHookRegistry.CallOpts)
+// Solidity: function owner() view returns(address)
+func (_EventHookRegistry *EventHookRegistrySession) Owner() (common.Address, error) {
+	return _EventHookRegistry.Contract.Owner(&_EventHookRegistry.CallOpts)
 }
 
-// DEPOSITORACCOUNT is a free data retrieval call binding the contract method 0xe591b282.
+// Owner is a free data retrieval call binding the contract method 0x8da5cb5b.
 //
-// Solidity: function DEPOSITOR_ACCOUNT() view returns(address)
-func (_EventHookRegistry *EventHookRegistryCallerSession) DEPOSITORACCOUNT() (common.Address, error) {
-	return _EventHookRegistry.Contract.DEPOSITORACCOUNT(&_EventHookRegistry.CallOpts)
-}
-
-// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
-//
-// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
-func (_EventHookRegistry *EventHookRegistryCaller) GetEventHooks(opts *bind.CallOpts) ([]EventHookRegistryEventHookItem, error) {
-	var out []interface{}
-	err := _EventHookRegistry.contract.Call(opts, &out, "getEventHooks")
-
-	if err != nil {
-		return *new([]EventHookRegistryEventHookItem), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new([]EventHookRegistryEventHookItem)).(*[]EventHookRegistryEventHookItem)
-
-	return out0, err
-
-}
-
-// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
-//
-// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
-func (_EventHookRegistry *EventHookRegistrySession) GetEventHooks() ([]EventHookRegistryEventHookItem, error) {
-	return _EventHookRegistry.Contract.GetEventHooks(&_EventHookRegistry.CallOpts)
-}
-
-// GetEventHooks is a free data retrieval call binding the contract method 0xdc85b499.
-//
-// Solidity: function getEventHooks() view returns((bytes32,address,address)[])
-func (_EventHookRegistry *EventHookRegistryCallerSession) GetEventHooks() ([]EventHookRegistryEventHookItem, error) {
-	return _EventHookRegistry.Contract.GetEventHooks(&_EventHookRegistry.CallOpts)
-}
-
-// Hello is a free data retrieval call binding the contract method 0x19ff1d21.
-//
-// Solidity: function hello() view returns(string)
-func (_EventHookRegistry *EventHookRegistryCaller) Hello(opts *bind.CallOpts) (string, error) {
-	var out []interface{}
-	err := _EventHookRegistry.contract.Call(opts, &out, "hello")
-
-	if err != nil {
-		return *new(string), err
-	}
-
-	out0 := *abi.ConvertType(out[0], new(string)).(*string)
-
-	return out0, err
-
-}
-
-// Hello is a free data retrieval call binding the contract method 0x19ff1d21.
-//
-// Solidity: function hello() view returns(string)
-func (_EventHookRegistry *EventHookRegistrySession) Hello() (string, error) {
-	return _EventHookRegistry.Contract.Hello(&_EventHookRegistry.CallOpts)
-}
-
-// Hello is a free data retrieval call binding the contract method 0x19ff1d21.
-//
-// Solidity: function hello() view returns(string)
-func (_EventHookRegistry *EventHookRegistryCallerSession) Hello() (string, error) {
-	return _EventHookRegistry.Contract.Hello(&_EventHookRegistry.CallOpts)
-}
-
-// Hooks is a free data retrieval call binding the contract method 0x864c17d7.
-//
-// Solidity: function hooks(uint256 ) view returns(bytes32 topic, address origin, address receiver)
-func (_EventHookRegistry *EventHookRegistryCaller) Hooks(opts *bind.CallOpts, arg0 *big.Int) (struct {
-	Topic    [32]byte
-	Origin   common.Address
-	Receiver common.Address
-}, error) {
-	var out []interface{}
-	err := _EventHookRegistry.contract.Call(opts, &out, "hooks", arg0)
-
-	outstruct := new(struct {
-		Topic    [32]byte
-		Origin   common.Address
-		Receiver common.Address
-	})
-	if err != nil {
-		return *outstruct, err
-	}
-
-	outstruct.Topic = *abi.ConvertType(out[0], new([32]byte)).(*[32]byte)
-	outstruct.Origin = *abi.ConvertType(out[1], new(common.Address)).(*common.Address)
-	outstruct.Receiver = *abi.ConvertType(out[2], new(common.Address)).(*common.Address)
-
-	return *outstruct, err
-
-}
-
-// Hooks is a free data retrieval call binding the contract method 0x864c17d7.
-//
-// Solidity: function hooks(uint256 ) view returns(bytes32 topic, address origin, address receiver)
-func (_EventHookRegistry *EventHookRegistrySession) Hooks(arg0 *big.Int) (struct {
-	Topic    [32]byte
-	Origin   common.Address
-	Receiver common.Address
-}, error) {
-	return _EventHookRegistry.Contract.Hooks(&_EventHookRegistry.CallOpts, arg0)
-}
-
-// Hooks is a free data retrieval call binding the contract method 0x864c17d7.
-//
-// Solidity: function hooks(uint256 ) view returns(bytes32 topic, address origin, address receiver)
-func (_EventHookRegistry *EventHookRegistryCallerSession) Hooks(arg0 *big.Int) (struct {
-	Topic    [32]byte
-	Origin   common.Address
-	Receiver common.Address
-}, error) {
-	return _EventHookRegistry.Contract.Hooks(&_EventHookRegistry.CallOpts, arg0)
+// Solidity: function owner() view returns(address)
+func (_EventHookRegistry *EventHookRegistryCallerSession) Owner() (common.Address, error) {
+	return _EventHookRegistry.Contract.Owner(&_EventHookRegistry.CallOpts)
 }
 
 // AddEventHook is a paid mutator transaction binding the contract method 0x7f5c4868.
 //
-// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns()
+// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns(bytes32)
 func (_EventHookRegistry *EventHookRegistryTransactor) AddEventHook(opts *bind.TransactOpts, _topic [32]byte, _origin common.Address, _receiver common.Address) (*types.Transaction, error) {
 	return _EventHookRegistry.contract.Transact(opts, "addEventHook", _topic, _origin, _receiver)
 }
 
 // AddEventHook is a paid mutator transaction binding the contract method 0x7f5c4868.
 //
-// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns()
+// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns(bytes32)
 func (_EventHookRegistry *EventHookRegistrySession) AddEventHook(_topic [32]byte, _origin common.Address, _receiver common.Address) (*types.Transaction, error) {
 	return _EventHookRegistry.Contract.AddEventHook(&_EventHookRegistry.TransactOpts, _topic, _origin, _receiver)
 }
 
 // AddEventHook is a paid mutator transaction binding the contract method 0x7f5c4868.
 //
-// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns()
+// Solidity: function addEventHook(bytes32 _topic, address _origin, address _receiver) returns(bytes32)
 func (_EventHookRegistry *EventHookRegistryTransactorSession) AddEventHook(_topic [32]byte, _origin common.Address, _receiver common.Address) (*types.Transaction, error) {
 	return _EventHookRegistry.Contract.AddEventHook(&_EventHookRegistry.TransactOpts, _topic, _origin, _receiver)
 }
 
-// Goodbye is a paid mutator transaction binding the contract method 0x75fc8e3c.
+// RemoveEventHook is a paid mutator transaction binding the contract method 0x7bae7b72.
 //
-// Solidity: function goodbye() returns(string)
-func (_EventHookRegistry *EventHookRegistryTransactor) Goodbye(opts *bind.TransactOpts) (*types.Transaction, error) {
-	return _EventHookRegistry.contract.Transact(opts, "goodbye")
+// Solidity: function removeEventHook(bytes32 id) returns()
+func (_EventHookRegistry *EventHookRegistryTransactor) RemoveEventHook(opts *bind.TransactOpts, id [32]byte) (*types.Transaction, error) {
+	return _EventHookRegistry.contract.Transact(opts, "removeEventHook", id)
 }
 
-// Goodbye is a paid mutator transaction binding the contract method 0x75fc8e3c.
+// RemoveEventHook is a paid mutator transaction binding the contract method 0x7bae7b72.
 //
-// Solidity: function goodbye() returns(string)
-func (_EventHookRegistry *EventHookRegistrySession) Goodbye() (*types.Transaction, error) {
-	return _EventHookRegistry.Contract.Goodbye(&_EventHookRegistry.TransactOpts)
+// Solidity: function removeEventHook(bytes32 id) returns()
+func (_EventHookRegistry *EventHookRegistrySession) RemoveEventHook(id [32]byte) (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.RemoveEventHook(&_EventHookRegistry.TransactOpts, id)
 }
 
-// Goodbye is a paid mutator transaction binding the contract method 0x75fc8e3c.
+// RemoveEventHook is a paid mutator transaction binding the contract method 0x7bae7b72.
 //
-// Solidity: function goodbye() returns(string)
-func (_EventHookRegistry *EventHookRegistryTransactorSession) Goodbye() (*types.Transaction, error) {
-	return _EventHookRegistry.Contract.Goodbye(&_EventHookRegistry.TransactOpts)
+// Solidity: function removeEventHook(bytes32 id) returns()
+func (_EventHookRegistry *EventHookRegistryTransactorSession) RemoveEventHook(id [32]byte) (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.RemoveEventHook(&_EventHookRegistry.TransactOpts, id)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_EventHookRegistry *EventHookRegistryTransactor) RenounceOwnership(opts *bind.TransactOpts) (*types.Transaction, error) {
+	return _EventHookRegistry.contract.Transact(opts, "renounceOwnership")
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_EventHookRegistry *EventHookRegistrySession) RenounceOwnership() (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.RenounceOwnership(&_EventHookRegistry.TransactOpts)
+}
+
+// RenounceOwnership is a paid mutator transaction binding the contract method 0x715018a6.
+//
+// Solidity: function renounceOwnership() returns()
+func (_EventHookRegistry *EventHookRegistryTransactorSession) RenounceOwnership() (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.RenounceOwnership(&_EventHookRegistry.TransactOpts)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_EventHookRegistry *EventHookRegistryTransactor) TransferOwnership(opts *bind.TransactOpts, newOwner common.Address) (*types.Transaction, error) {
+	return _EventHookRegistry.contract.Transact(opts, "transferOwnership", newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_EventHookRegistry *EventHookRegistrySession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.TransferOwnership(&_EventHookRegistry.TransactOpts, newOwner)
+}
+
+// TransferOwnership is a paid mutator transaction binding the contract method 0xf2fde38b.
+//
+// Solidity: function transferOwnership(address newOwner) returns()
+func (_EventHookRegistry *EventHookRegistryTransactorSession) TransferOwnership(newOwner common.Address) (*types.Transaction, error) {
+	return _EventHookRegistry.Contract.TransferOwnership(&_EventHookRegistry.TransactOpts, newOwner)
+}
+
+// EventHookRegistryEventHookAddedIterator is returned from FilterEventHookAdded and is used to iterate over the raw logs and unpacked data for EventHookAdded events raised by the EventHookRegistry contract.
+type EventHookRegistryEventHookAddedIterator struct {
+	Event *EventHookRegistryEventHookAdded // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EventHookRegistryEventHookAddedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EventHookRegistryEventHookAdded)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EventHookRegistryEventHookAdded)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EventHookRegistryEventHookAddedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EventHookRegistryEventHookAddedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EventHookRegistryEventHookAdded represents a EventHookAdded event raised by the EventHookRegistry contract.
+type EventHookRegistryEventHookAdded struct {
+	Id       [32]byte
+	Topic    [32]byte
+	Origin   common.Address
+	Receiver common.Address
+	Raw      types.Log // Blockchain specific contextual infos
+}
+
+// FilterEventHookAdded is a free log retrieval operation binding the contract event 0xdf6bdf83d24c78bb26eb3d7b34123cc0be2370aa49944d3ca1b9b8801becd41c.
+//
+// Solidity: event EventHookAdded(bytes32 indexed id, bytes32 topic, address origin, address receiver)
+func (_EventHookRegistry *EventHookRegistryFilterer) FilterEventHookAdded(opts *bind.FilterOpts, id [][32]byte) (*EventHookRegistryEventHookAddedIterator, error) {
+
+	var idRule []interface{}
+	for _, idItem := range id {
+		idRule = append(idRule, idItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.FilterLogs(opts, "EventHookAdded", idRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EventHookRegistryEventHookAddedIterator{contract: _EventHookRegistry.contract, event: "EventHookAdded", logs: logs, sub: sub}, nil
+}
+
+// WatchEventHookAdded is a free log subscription operation binding the contract event 0xdf6bdf83d24c78bb26eb3d7b34123cc0be2370aa49944d3ca1b9b8801becd41c.
+//
+// Solidity: event EventHookAdded(bytes32 indexed id, bytes32 topic, address origin, address receiver)
+func (_EventHookRegistry *EventHookRegistryFilterer) WatchEventHookAdded(opts *bind.WatchOpts, sink chan<- *EventHookRegistryEventHookAdded, id [][32]byte) (event.Subscription, error) {
+
+	var idRule []interface{}
+	for _, idItem := range id {
+		idRule = append(idRule, idItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.WatchLogs(opts, "EventHookAdded", idRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EventHookRegistryEventHookAdded)
+				if err := _EventHookRegistry.contract.UnpackLog(event, "EventHookAdded", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseEventHookAdded is a log parse operation binding the contract event 0xdf6bdf83d24c78bb26eb3d7b34123cc0be2370aa49944d3ca1b9b8801becd41c.
+//
+// Solidity: event EventHookAdded(bytes32 indexed id, bytes32 topic, address origin, address receiver)
+func (_EventHookRegistry *EventHookRegistryFilterer) ParseEventHookAdded(log types.Log) (*EventHookRegistryEventHookAdded, error) {
+	event := new(EventHookRegistryEventHookAdded)
+	if err := _EventHookRegistry.contract.UnpackLog(event, "EventHookAdded", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// EventHookRegistryEventHookRemovedIterator is returned from FilterEventHookRemoved and is used to iterate over the raw logs and unpacked data for EventHookRemoved events raised by the EventHookRegistry contract.
+type EventHookRegistryEventHookRemovedIterator struct {
+	Event *EventHookRegistryEventHookRemoved // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EventHookRegistryEventHookRemovedIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EventHookRegistryEventHookRemoved)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EventHookRegistryEventHookRemoved)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EventHookRegistryEventHookRemovedIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EventHookRegistryEventHookRemovedIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EventHookRegistryEventHookRemoved represents a EventHookRemoved event raised by the EventHookRegistry contract.
+type EventHookRegistryEventHookRemoved struct {
+	Id  [32]byte
+	Raw types.Log // Blockchain specific contextual infos
+}
+
+// FilterEventHookRemoved is a free log retrieval operation binding the contract event 0x06ec7e790ccfc5856f4aa76b96fe94c880e0da3848b7160500b8aaf346fd77f1.
+//
+// Solidity: event EventHookRemoved(bytes32 indexed id)
+func (_EventHookRegistry *EventHookRegistryFilterer) FilterEventHookRemoved(opts *bind.FilterOpts, id [][32]byte) (*EventHookRegistryEventHookRemovedIterator, error) {
+
+	var idRule []interface{}
+	for _, idItem := range id {
+		idRule = append(idRule, idItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.FilterLogs(opts, "EventHookRemoved", idRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EventHookRegistryEventHookRemovedIterator{contract: _EventHookRegistry.contract, event: "EventHookRemoved", logs: logs, sub: sub}, nil
+}
+
+// WatchEventHookRemoved is a free log subscription operation binding the contract event 0x06ec7e790ccfc5856f4aa76b96fe94c880e0da3848b7160500b8aaf346fd77f1.
+//
+// Solidity: event EventHookRemoved(bytes32 indexed id)
+func (_EventHookRegistry *EventHookRegistryFilterer) WatchEventHookRemoved(opts *bind.WatchOpts, sink chan<- *EventHookRegistryEventHookRemoved, id [][32]byte) (event.Subscription, error) {
+
+	var idRule []interface{}
+	for _, idItem := range id {
+		idRule = append(idRule, idItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.WatchLogs(opts, "EventHookRemoved", idRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EventHookRegistryEventHookRemoved)
+				if err := _EventHookRegistry.contract.UnpackLog(event, "EventHookRemoved", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseEventHookRemoved is a log parse operation binding the contract event 0x06ec7e790ccfc5856f4aa76b96fe94c880e0da3848b7160500b8aaf346fd77f1.
+//
+// Solidity: event EventHookRemoved(bytes32 indexed id)
+func (_EventHookRegistry *EventHookRegistryFilterer) ParseEventHookRemoved(log types.Log) (*EventHookRegistryEventHookRemoved, error) {
+	event := new(EventHookRegistryEventHookRemoved)
+	if err := _EventHookRegistry.contract.UnpackLog(event, "EventHookRemoved", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
+}
+
+// EventHookRegistryOwnershipTransferredIterator is returned from FilterOwnershipTransferred and is used to iterate over the raw logs and unpacked data for OwnershipTransferred events raised by the EventHookRegistry contract.
+type EventHookRegistryOwnershipTransferredIterator struct {
+	Event *EventHookRegistryOwnershipTransferred // Event containing the contract specifics and raw log
+
+	contract *bind.BoundContract // Generic contract to use for unpacking event data
+	event    string              // Event name to use for unpacking event data
+
+	logs chan types.Log        // Log channel receiving the found contract events
+	sub  ethereum.Subscription // Subscription for errors, completion and termination
+	done bool                  // Whether the subscription completed delivering logs
+	fail error                 // Occurred error to stop iteration
+}
+
+// Next advances the iterator to the subsequent event, returning whether there
+// are any more events found. In case of a retrieval or parsing error, false is
+// returned and Error() can be queried for the exact failure.
+func (it *EventHookRegistryOwnershipTransferredIterator) Next() bool {
+	// If the iterator failed, stop iterating
+	if it.fail != nil {
+		return false
+	}
+	// If the iterator completed, deliver directly whatever's available
+	if it.done {
+		select {
+		case log := <-it.logs:
+			it.Event = new(EventHookRegistryOwnershipTransferred)
+			if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+				it.fail = err
+				return false
+			}
+			it.Event.Raw = log
+			return true
+
+		default:
+			return false
+		}
+	}
+	// Iterator still in progress, wait for either a data or an error event
+	select {
+	case log := <-it.logs:
+		it.Event = new(EventHookRegistryOwnershipTransferred)
+		if err := it.contract.UnpackLog(it.Event, it.event, log); err != nil {
+			it.fail = err
+			return false
+		}
+		it.Event.Raw = log
+		return true
+
+	case err := <-it.sub.Err():
+		it.done = true
+		it.fail = err
+		return it.Next()
+	}
+}
+
+// Error returns any retrieval or parsing error occurred during filtering.
+func (it *EventHookRegistryOwnershipTransferredIterator) Error() error {
+	return it.fail
+}
+
+// Close terminates the iteration process, releasing any pending underlying
+// resources.
+func (it *EventHookRegistryOwnershipTransferredIterator) Close() error {
+	it.sub.Unsubscribe()
+	return nil
+}
+
+// EventHookRegistryOwnershipTransferred represents a OwnershipTransferred event raised by the EventHookRegistry contract.
+type EventHookRegistryOwnershipTransferred struct {
+	PreviousOwner common.Address
+	NewOwner      common.Address
+	Raw           types.Log // Blockchain specific contextual infos
+}
+
+// FilterOwnershipTransferred is a free log retrieval operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_EventHookRegistry *EventHookRegistryFilterer) FilterOwnershipTransferred(opts *bind.FilterOpts, previousOwner []common.Address, newOwner []common.Address) (*EventHookRegistryOwnershipTransferredIterator, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.FilterLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return &EventHookRegistryOwnershipTransferredIterator{contract: _EventHookRegistry.contract, event: "OwnershipTransferred", logs: logs, sub: sub}, nil
+}
+
+// WatchOwnershipTransferred is a free log subscription operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_EventHookRegistry *EventHookRegistryFilterer) WatchOwnershipTransferred(opts *bind.WatchOpts, sink chan<- *EventHookRegistryOwnershipTransferred, previousOwner []common.Address, newOwner []common.Address) (event.Subscription, error) {
+
+	var previousOwnerRule []interface{}
+	for _, previousOwnerItem := range previousOwner {
+		previousOwnerRule = append(previousOwnerRule, previousOwnerItem)
+	}
+	var newOwnerRule []interface{}
+	for _, newOwnerItem := range newOwner {
+		newOwnerRule = append(newOwnerRule, newOwnerItem)
+	}
+
+	logs, sub, err := _EventHookRegistry.contract.WatchLogs(opts, "OwnershipTransferred", previousOwnerRule, newOwnerRule)
+	if err != nil {
+		return nil, err
+	}
+	return event.NewSubscription(func(quit <-chan struct{}) error {
+		defer sub.Unsubscribe()
+		for {
+			select {
+			case log := <-logs:
+				// New log arrived, parse the event and forward to the user
+				event := new(EventHookRegistryOwnershipTransferred)
+				if err := _EventHookRegistry.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+					return err
+				}
+				event.Raw = log
+
+				select {
+				case sink <- event:
+				case err := <-sub.Err():
+					return err
+				case <-quit:
+					return nil
+				}
+			case err := <-sub.Err():
+				return err
+			case <-quit:
+				return nil
+			}
+		}
+	}), nil
+}
+
+// ParseOwnershipTransferred is a log parse operation binding the contract event 0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0.
+//
+// Solidity: event OwnershipTransferred(address indexed previousOwner, address indexed newOwner)
+func (_EventHookRegistry *EventHookRegistryFilterer) ParseOwnershipTransferred(log types.Log) (*EventHookRegistryOwnershipTransferred, error) {
+	event := new(EventHookRegistryOwnershipTransferred)
+	if err := _EventHookRegistry.contract.UnpackLog(event, "OwnershipTransferred", log); err != nil {
+		return nil, err
+	}
+	event.Raw = log
+	return event, nil
 }

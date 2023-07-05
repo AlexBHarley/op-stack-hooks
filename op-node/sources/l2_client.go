@@ -170,7 +170,7 @@ func (s *L2Client) SystemConfigByL2Hash(ctx context.Context, hash common.Hash) (
 	return cfg, nil
 }
 
-func (s *L2Client) L2EventHooks(ctx context.Context, blockNumber uint64) ([]bindings.EventHookRegistryEventHookItem, error) {
+func (s *L2Client) L2EventHooks(ctx context.Context, blockNumber uint64) ([]bindings.EventHookItem, error) {
 	fmt.Println("L2EventHooks start")
 	hookRegistryAbi := `[
     {
@@ -339,9 +339,9 @@ func (s *L2Client) L2EventHooks(ctx context.Context, blockNumber uint64) ([]bind
 		return  nil, err
 	}
 
-	outActual := make([]bindings.EventHookRegistryEventHookItem, len(out))
+	outActual := make([]bindings.EventHookItem, len(out))
 	for i, item := range out {
-		outActual[i] = *abi.ConvertType(item, new(bindings.EventHookRegistryEventHookItem)).(*bindings.EventHookRegistryEventHookItem)
+		outActual[i] = *abi.ConvertType(item, new(bindings.EventHookItem)).(*bindings.EventHookItem)
 	}
 		
 	fmt.Println("Got", len(outActual), "event hooks")

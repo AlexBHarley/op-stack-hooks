@@ -19,7 +19,7 @@ struct EventHookItem {
 /// @custom:predeploy 0x420000000000000000000000000000000000001c
 /// @title EventHookRegistry
 /// @notice blah blah.
-contract EventHookRegistry is OwnableUpgradeable {
+contract EventHookRegistry is Ownable {
     using EnumerableSet for EnumerableSet.Bytes32Set;
 
     mapping(bytes32 => EventHookItem) private hooks;
@@ -28,12 +28,7 @@ contract EventHookRegistry is OwnableUpgradeable {
     event EventHookAdded(bytes32 indexed id, bytes32 topic, address origin, address receiver);
     event EventHookRemoved(bytes32 indexed id);
 
-    constructor() OwnableUpgradeable() {
-        initialize(address(0));
-    }
-
-    function initialize(address _owner) public initializer {
-        __Ownable_init();
+    constructor(address _owner) Ownable() {
         _transferOwnership(_owner);
     }
 

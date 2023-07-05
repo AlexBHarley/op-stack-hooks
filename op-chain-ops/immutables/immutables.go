@@ -81,6 +81,9 @@ func BuildOptimism(immutable ImmutableConfig) (DeploymentResults, error) {
 		},
 		{
 			Name: "EventHookRegistry",
+			Args: []interface{}{
+				immutable["EventHookRegistry"]["_owner"],
+			},
 		},
 		{
 			Name: "L2CrossDomainMessenger",
@@ -185,8 +188,11 @@ func l2Deployer(backend *backends.SimulatedBackend, opts *bind.TransactOpts, dep
 		// No arguments required for the Burn contract
 		_, tx, _, err = bindings.DeployBurn(opts, backend)
 	case "EventHookRegistry":
-		// No arguments required for the EventHookRegistry contract
-		_, tx, _, err = bindings.DeployEventHookRegistry(opts, backend)
+		owner, ok := deployment.Args[0].(common.Address)
+		if !ok {
+			return nil, fmt.Errorf("invalid type for owner")
+		}
+		_, tx, _, err = bindings.DeployEventHookRegistry(opts, backend, owner)
 	case "L2CrossDomainMessenger":
 		otherMessenger, ok := deployment.Args[0].(common.Address)
 		if !ok {
