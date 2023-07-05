@@ -1,4 +1,4 @@
-# OP Hooks
+# OP Stack Hooks
 
 An [OP Stack Mod](https://blog.oplabs.co/introducing-op-stack-mods/) for adding customisable transaction hooks to your OP Stack chain. Hook registration is permissioned in this mod, meaning hook registration is priviledged and only rollup deployers can add these.
 
@@ -6,13 +6,15 @@ An [OP Stack Mod](https://blog.oplabs.co/introducing-op-stack-mods/) for adding 
 - [ ] Before block hook
 - [ ] Transaction hooks
 
+See the diff with vanilla Optimism [here](https://github.com/AlexBHarley/op-stack-hooks/compare/op-stack-checkpoint...develop).
+
 ### Event hooks
 
 Relay transaction events from Ethereum mainnet to your rollup, these events can then trigger additional contracts on your rollup or simply store data. Some novel ideas for event hooks include,
 
 - Chainlink price feeds, automatically relay price feed data to your rollup
 - Cross chain goverance, once votes pass and are executed on L1 these could be replayed on your rollup
--
+- Asset ownership tracking, replay asset ownership on your rollup
 
 A hook can be added by calling `addEventHook` on the EventHookRegistry, a predeploy available at `0x420000000000000000000000000000000000001c`. Your
 
@@ -21,6 +23,8 @@ A hook can be added by calling `addEventHook` on the EventHookRegistry, a predep
 Called before every block, giving priviledged access to block space for rollup deployers.
 
 ### Transaction hooks
+
+A superset of functionality offered by event hooks, allowing listeners to be registered on transactions filtered by a `to` or `from` address.
 
 ## Quickstart
 
