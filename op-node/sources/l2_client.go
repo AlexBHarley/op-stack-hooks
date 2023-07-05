@@ -13,6 +13,7 @@ import (
 	"github.com/ethereum/go-ethereum/log"
 
 	"github.com/ethereum-optimism/optimism/op-bindings/bindings"
+	"github.com/ethereum-optimism/optimism/op-bindings/predeploys"
 	"github.com/ethereum-optimism/optimism/op-node/client"
 	"github.com/ethereum-optimism/optimism/op-node/eth"
 	"github.com/ethereum-optimism/optimism/op-node/rollup"
@@ -150,6 +151,8 @@ func (s *L2Client) L2BlockRefByHash(ctx context.Context, hash common.Hash) (eth.
 	return ref, nil
 }
 
+
+
 // SystemConfigByL2Hash returns the [eth.SystemConfig] (matching the config updates up to and including the L1 origin) for the given L2 block hash.
 // The returned [eth.SystemConfig] may not be in the canonical chain when the hash is not canonical.
 func (s *L2Client) SystemConfigByL2Hash(ctx context.Context, hash common.Hash) (eth.SystemConfig, error) {
@@ -171,180 +174,39 @@ func (s *L2Client) SystemConfigByL2Hash(ctx context.Context, hash common.Hash) (
 }
 
 func (s *L2Client) L2EventHooks(ctx context.Context, blockNumber uint64) ([]bindings.EventHookItem, error) {
-	fmt.Println("L2EventHooks start")
-	hookRegistryAbi := `[
-    {
-      "inputs": [],
-      "stateMutability": "nonpayable",
-      "type": "constructor"
-    },
-    {
-      "inputs": [],
-      "name": "DEPOSITOR_ACCOUNT",
-      "outputs": [
-        {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "bytes32",
-          "name": "_topic",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "address",
-          "name": "_origin",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "_receiver",
-          "type": "address"
-        }
-      ],
-      "name": "addEventHook",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "getEventHooks",
-      "outputs": [
-        {
-          "components": [
-            {
-              "internalType": "bytes32",
-              "name": "topic",
-              "type": "bytes32"
-            },
-            {
-              "internalType": "address",
-              "name": "origin",
-              "type": "address"
-            },
-            {
-              "internalType": "address",
-              "name": "receiver",
-              "type": "address"
-            }
-          ],
-          "internalType": "struct EventHookRegistry.EventHookItem[]",
-          "name": "",
-          "type": "tuple[]"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "goodbye",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [],
-      "name": "hello",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "hooks",
-      "outputs": [
-        {
-          "internalType": "bytes32",
-          "name": "topic",
-          "type": "bytes32"
-        },
-        {
-          "internalType": "address",
-          "name": "origin",
-          "type": "address"
-        },
-        {
-          "internalType": "address",
-          "name": "receiver",
-          "type": "address"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    }
-  ]`
-
-	registry, err := abi.JSON(strings.NewReader(hookRegistryAbi))
+	registry, err := abi.JSON(strings.NewReader(bindings.EventHookRegistryABI))
 	if err != nil {
-		fmt.Println("json err", err)
 		return nil, err
 	}
 
 	data, err := registry.Pack("getEventHooks")
 	if err != nil {
-		fmt.Println("pack err", err)
 		return nil, err
 	}
 
-	fmt.Println("data", data)
-	fmt.Println("blockNumber", blockNumber)
-
-	to := common.HexToAddress("0x420000000000000000000000000000000000001c")
+	to := common.HexToAddress(predeploys.EventHookRegistry)
 	call := map[string]interface{}{
 		"to": &to,
 		"data": hexutil.Encode(data),
 		"from": to,
 	}
 
-	fmt.Println("call", call)
-
 	var hex hexutil.Bytes
 	err = s.client.CallContext(ctx, &hex, "eth_call", call, hexutil.EncodeUint64(blockNumber));
 	if err != nil {
-		fmt.Println("CallContext", err)
 		return nil, err
 	}
 
-	var out []interface{}
-	err = registry.UnpackIntoInterface(&out, "getEventHooks", hex)
+	var raw []interface{}
+	err = registry.UnpackIntoInterface(&raw, "getEventHooks", hex)
 	if err != nil {
-		fmt.Println("UnpackIntoInterface err", err)
 		return  nil, err
 	}
 
-	outActual := make([]bindings.EventHookItem, len(out))
+	out := make([]bindings.EventHookItem, len(raw))
 	for i, item := range out {
-		outActual[i] = *abi.ConvertType(item, new(bindings.EventHookItem)).(*bindings.EventHookItem)
+		out[i] = *abi.ConvertType(item, new(bindings.EventHookItem)).(*bindings.EventHookItem)
 	}
 		
-	fmt.Println("Got", len(outActual), "event hooks")
-	
-	return outActual, nil
+	return out, nil
 }

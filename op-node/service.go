@@ -56,7 +56,6 @@ func NewConfig(ctx *cli.Context, log log.Logger) (*node.Config, error) {
 		return nil, fmt.Errorf("failed to load l2 endpoints info: %w", err)
 	}
 
-
 	l2SyncEndpoint := NewL2SyncEndpointConfig(ctx)
 
 	cfg := &node.Config{

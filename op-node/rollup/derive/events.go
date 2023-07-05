@@ -13,33 +13,9 @@ import (
 	"github.com/ethereum/go-ethereum/core/types"
 )
 
-const EVENT_HOOK_ABI = `
-[
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "origin",
-				"type": "address"
-			},
-			{
-				"internalType": "bytes",
-				"name": "topics",
-				"type": "bytes"
-			},
-			{
-				"internalType": "bytes",
-				"name": "data",
-				"type": "bytes"
-			}
-		],
-		"name": "handle",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	}
-]`
-
+// Here we convert a log into a handle(origin, topics, data) call. We
+// pack the logs (and normalise to 4 logs) so they can be safely abi.Decoded
+// in Solidity land
 func buildHookCallData(log *types.Log) ([]byte, error) {
 	var logTopics [4]interface{}
 	for i := 0; i < 4; i++ {
@@ -53,7 +29,7 @@ func buildHookCallData(log *types.Log) ([]byte, error) {
 		logTopics[i] = by
 	}
 
-	registry, err := abi.JSON(strings.NewReader(EVENT_HOOK_ABI))
+	registry, err := abi.JSON(strings.NewReader(bindings.IEventHookABI))
 	if err != nil {
 		return nil, err
 	}
@@ -73,7 +49,7 @@ func buildHookCallData(log *types.Log) ([]byte, error) {
 		logTopics[3],
 	)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	result, err := registry.Pack("handle", log.Address, packedTopics, log.Data)

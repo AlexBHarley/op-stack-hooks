@@ -32,5 +32,6 @@
   "CrossDomainMessenger",
   "MIPS",
   "PreimageOracle",
-  "EventHookRegistry"
+  "EventHookRegistry",
+  "IEventHook"
 ]
