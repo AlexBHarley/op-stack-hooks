@@ -5,7 +5,8 @@ import { AbstractEventHook } from "./AbstractEventHook.sol";
 
 /// @title ExampleEventHook
 /// @notice Pair this with the ExampleEventEmitter contract
-/// @notice Receives an event from the ExampleEventEmitter and .
+/// @notice Receives an event from the ExampleEventEmitter and writes some
+/// values to storage.
 contract ExampleEventHook is AbstractEventHook {
     address internal lastOriginHandled;
 

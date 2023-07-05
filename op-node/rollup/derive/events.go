@@ -55,8 +55,7 @@ func buildHookCallData(log *types.Log) ([]byte, error) {
 
 	registry, err := abi.JSON(strings.NewReader(EVENT_HOOK_ABI))
 	if err != nil {
-		fmt.Println("buildHookCallData json err", err)
-		return nil, nil
+		return nil, err
 	}
 
 	bytes32Ty, _ := abi.NewType("bytes32", "", nil)
@@ -73,11 +72,13 @@ func buildHookCallData(log *types.Log) ([]byte, error) {
 		logTopics[2],
 		logTopics[3],
 	)
+	if err != nil {
+		return err
+	}
 
 	result, err := registry.Pack("handle", log.Address, packedTopics, log.Data)
 	if err != nil {
-		fmt.Println("buildHookCallData pack err", err)
-		return nil, nil
+		return nil, err
 	}
 
 	return result, nil
@@ -94,9 +95,12 @@ func parseLogs(receipts []*types.Receipt, eventHooks []bindings.EventHookItem) (
 		for j, log := range rec.Logs {
 			for _, hook := range eventHooks {
 				if log.Address == hook.Origin && len(log.Topics) > 0 && log.Topics[0] == hook.Topic {
-					fmt.Println("Found a matching topic", log.Topics[0])
-
 					callData, err := buildHookCallData(log)
+					if err != nil {
+						result = multierror.Append(result, fmt.Errorf("unable to build hook calldata %d, log %d: %w", i, j, err))
+						continue
+					}
+
 
 					source := UserDepositSource{
 							L1BlockHash: rec.BlockHash,

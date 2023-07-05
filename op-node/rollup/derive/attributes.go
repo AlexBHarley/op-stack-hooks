@@ -115,7 +115,6 @@ func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Contex
 			l2Parent, nextL2Time, eth.ToBlockID(l1Info), l1Info.Time()))
 	}
 
-	fmt.Println("Building system transactions...")
 	l1InfoTx, err := L1InfoDepositBytes(seqNumber, l1Info, sysConfig, ba.cfg.IsRegolith(nextL2Time))
 	if err != nil {
 		return nil, NewCriticalError(fmt.Errorf("failed to create l1InfoTx: %w", err))
@@ -127,13 +126,10 @@ func (ba *FetchingAttributesBuilder) PreparePayloadAttributes(ctx context.Contex
 	}
 
 	
-	txs := make([]hexutil.Bytes, 0, 2+len(depositTxs) + len(eventHookTxs))
+	txs := make([]hexutil.Bytes, 0, 1+len(depositTxs) + len(eventHookTxs))
 	txs = append(txs, l1InfoTx)
-	txs = append(txs, l1BurnTx)
 	txs = append(txs, depositTxs...)
 	txs = append(txs, eventHookTxs...)
-	
-	fmt.Println("Built", len(txs), "system transactions")
 	
 	return &eth.PayloadAttributes{
 		Timestamp:             hexutil.Uint64(nextL2Time),

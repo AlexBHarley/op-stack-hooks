@@ -18,7 +18,9 @@ struct EventHookItem {
 /// @custom:proxied
 /// @custom:predeploy 0x420000000000000000000000000000000000001c
 /// @title EventHookRegistry
-/// @notice blah blah.
+/// @notice A registry of hooks, that handle events from L1. A hook is defined as a
+/// topic and address combination that the rollup should listen for logs from, as well
+/// as a destination contract that should be invoked with the event data.
 contract EventHookRegistry is Ownable {
     using EnumerableSet for EnumerableSet.Bytes32Set;
 
