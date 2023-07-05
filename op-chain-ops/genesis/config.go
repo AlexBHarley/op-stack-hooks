@@ -121,6 +121,7 @@ type DeployConfig struct {
 	GovernanceTokenName string `json:"governanceTokenName"`
 	// The owner of the GovernanceToken
 	GovernanceTokenOwner common.Address `json:"governanceTokenOwner"`
+	EventHookRegistryOwner common.Address `json:"eventHookRegistryOwner"`
 
 	DeploymentWaitConfirmations int `json:"deploymentWaitConfirmations"`
 
@@ -453,7 +454,7 @@ func NewL2ImmutableConfig(config *DeployConfig, block *types.Block) (immutables.
 		"withdrawalNetwork":       config.BaseFeeVaultWithdrawalNetwork,
 	}
 	immutable["EventHookRegistry"] = immutables.ImmutableValues{
-		"_owner": common.HexToAddress("0xdee43C7C0E97B81Bdb473d558567d9E0E54bC634"),
+		"_owner": config.EventHookRegistryOwner,
 	}
 
 	return immutable, nil
@@ -510,7 +511,7 @@ func NewL2StorageConfig(config *DeployConfig, block *types.Block) (state.Storage
 		"_owner": config.ProxyAdminOwner,
 	}
 	storage["EventHookRegistry"] = state.StorageValues{
-		"_owner": common.HexToAddress("0xdee43C7C0E97B81Bdb473d558567d9E0E54bC634"),
+		"_owner": config.EventHookRegistryOwner,
 	}
 	return storage, nil
 }

@@ -45,5 +45,6 @@
   "l1StartingBlockTag": "earliest",
   "l2GenesisRegolithTimeOffset": "0x0",
   "faultGameAbsolutePrestate": 15,
-  "faultGameMaxDepth": 4
+  "faultGameMaxDepth": 4,
+  "eventHookRegistryOwner": "0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266"
 }
