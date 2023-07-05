@@ -16,7 +16,7 @@ Relay transaction events from Ethereum mainnet to your rollup, these events can 
 - Cross chain goverance, once votes pass and are executed on L1 these could be replayed on your rollup
 - Asset ownership tracking, replay asset ownership on your rollup
 
-A hook can be added by calling `addEventHook` on the EventHookRegistry, a predeploy available at `0x420000000000000000000000000000000000001c`. Your
+A hook can be added by calling `addEventHook` on the EventHookRegistry, a predeploy available at `0x420000000000000000000000000000000000001c`.
 
 ### Before block hook
 
@@ -30,13 +30,13 @@ A superset of functionality offered by event hooks, allowing listeners to be reg
 
 The best way to get started with this mod and register some hooks is to use the devnet. Following along with the below commands will get you setup with a hook in under five minutes.
 
-We'll first setup our devnet.
+We'll first setup our devnet,
 
 ```
 make devnet-up-deploy
 ```
 
-This command runs both the L1 and L2 pieces of the rollup which is super handy. After that's completed we'll set some variables to make deploying and interacting with our contracts a bit easier.
+which will run both the L1 and L2 pieces of the rollup, super handy. After that's completed we'll set some variables to make deploying and interacting with our contracts a bit easier.
 
 ```
 export L2=http://localhost:9545
